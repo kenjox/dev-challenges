@@ -39,18 +39,18 @@ function App() {
       <div className="row">
         <div className="item">
           <Snippet>&lt;Button startIcon="local_store" /&gt;</Snippet>
-          <Button />
+          <Button startIcon="local_store" />
         </div>
         <div className="item">
           <Snippet>&lt;Button endIcon="local_store" /&gt;</Snippet>
-          <Button />
+          <Button endIcon="local_store" />
         </div>
       </div>
       <h2>Sizes</h2>
       <div className="row">
         <div className="item">
           <Snippet>&lt;Button size="sm" /&gt;</Snippet>
-          <Button size="sm" />
+          <Button size="sm" color="primary" />
         </div>
         <div className="item">
           <Snippet>&lt;Button size="md" /&gt;</Snippet>
