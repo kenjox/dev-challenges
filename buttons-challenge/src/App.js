@@ -6,67 +6,74 @@ function App() {
   return (
     <div className="container">
       <h2 className="title">Modes</h2>
-      <div class="row">
-        <div class="item">
+      <div className="row">
+        <div className="item">
           <Snippet>&lt;Button /&gt;</Snippet>
           <Button />
         </div>
-        <div class="item">
+        <div className="item">
           <Snippet>&lt;Button variant="outline" /&gt;</Snippet>
           <Button variant="outline" />
         </div>
-        <div class="item">
+        <div className="item">
           <Snippet>&lt;Button variant="text" /&gt;</Snippet>
           <Button variant="text" />
         </div>
-        <div class="item">
+        <div className="item">
           <Snippet>&lt;Button disableShadow /&gt;</Snippet>
-          <Button disableShadow />
+          <Button disableShadow color="primary" />
         </div>
-        <div class="item">
+      </div>
+      <h2>Disabled</h2>
+      <div className="row">
+        <div className="item">
           <Snippet>&lt;Button disabled /&gt;</Snippet>
           <Button disabled />
         </div>
+        <div className="item">
+          <Snippet>&lt;Button disabled variant="text" /&gt;</Snippet>
+          <Button disabled variant="text" title="Disabled" />
+        </div>
       </div>
       <h2>Icons</h2>
-      <div class="row">
-        <div class="item">
+      <div className="row">
+        <div className="item">
           <Snippet>&lt;Button startIcon="local_store" /&gt;</Snippet>
           <Button />
         </div>
-        <div class="item">
+        <div className="item">
           <Snippet>&lt;Button endIcon="local_store" /&gt;</Snippet>
           <Button />
         </div>
       </div>
       <h2>Sizes</h2>
-      <div class="row">
-        <div class="item">
+      <div className="row">
+        <div className="item">
           <Snippet>&lt;Button size="sm" /&gt;</Snippet>
           <Button size="sm" />
         </div>
-        <div class="item">
+        <div className="item">
           <Snippet>&lt;Button size="md" /&gt;</Snippet>
-          <Button size="md" />
+          <Button size="md" color="primary" />
         </div>
-        <div class="item">
+        <div className="item">
           <Snippet>&lt;Button size="lg" /&gt;</Snippet>
-          <Button size="lg" />
+          <Button size="lg" color="primary" />
         </div>
       </div>
       <h2>Colors</h2>
-      <div class="row">
-        <div class="item">
+      <div className="row">
+        <div className="item">
           <Snippet>&lt;Button color="default" /&gt;</Snippet>
           <Button color="default" />
         </div>
-        <div class="item">
+        <div className="item">
           <Snippet>&lt;Button color="primary" /&gt;</Snippet>
           <Button color="primary" />
         </div>
-        <div class="item">
+        <div className="item">
           <Snippet>&lt;Button color="secondary" /&gt;</Snippet>
-          <Button color="secondary" />
+          <Button color="secondary" title="Secondary" />
         </div>
       </div>
     </div>
