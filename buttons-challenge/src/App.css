@@ -19,3 +19,29 @@ html {
 .item {
   margin: 2rem;
 }
+
+.footer-wrapper {
+  display: flex;
+  min-height: 10vh;
+  align-items: center;
+  width: 90%;
+  margin: auto;
+}
+
+footer h2 {
+  flex: 3 1 30rem;
+}
+
+footer a {
+  text-decoration: none;
+  font-size: 15px;
+  color: black;
+  font-weight: bold;
+}
+
+footer ul {
+  display: flex;
+  list-style: none;
+  flex: 1 1 30rem;
+  justify-content: space-around;
+}
