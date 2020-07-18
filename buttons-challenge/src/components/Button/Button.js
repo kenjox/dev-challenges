@@ -1,59 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Icon from '@material-ui/core/Icon';
 
-import {
-  DefaultStyledBtn,
-  VariantStyledButton,
-  DisableShadowStyledBtn,
-  SizeStyledBtn,
-  ColorStyledBtn,
-} from './StyledButtons';
+import { StyledButton } from './StyledButtons';
 
 const Button = (props) => {
-  const {
-    title,
-    variant,
-    disableShadow,
-    startIcon,
-    endIcon,
-    color,
-    size,
-  } = props;
-
-  let btnElement = null;
-
-  // Default button containing only title
-  if (title) {
-    btnElement = <DefaultStyledBtn {...props}>{title}</DefaultStyledBtn>;
-  }
-
-  // Variant button outline and text
-  if (variant) {
-    btnElement = <VariantStyledButton {...props}>{title}</VariantStyledButton>;
-  }
-
-  // DisableShadow button
-  if (disableShadow) {
-    btnElement = (
-      <DisableShadowStyledBtn {...props}>{title}</DisableShadowStyledBtn>
-    );
-  }
-
-  // Button with icons
-  // TODO: implement icon support
-
-  // Button color
-  if (color) {
-    console.log({ props });
-    btnElement = <ColorStyledBtn {...props}>{title}</ColorStyledBtn>;
-  }
-
-  // Button sizes
-  if (size) {
-    btnElement = <SizeStyledBtn {...props}>{title}</SizeStyledBtn>;
-  }
-
-  return btnElement;
+  const { title } = props;
+  return (
+    <StyledButton {...props}>
+      <span>{title}</span>
+    </StyledButton>
+  );
 };
 
 Button.defaultProps = {
@@ -67,6 +24,7 @@ Button.propTypes = {
   startIcon: PropTypes.string,
   endIcon: PropTypes.string,
   disabled: PropTypes.bool,
+  disableShadow: PropTypes.bool,
 };
 
 export { Button };

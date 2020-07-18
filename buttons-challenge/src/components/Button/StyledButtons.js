@@ -1,138 +1,134 @@
 import styled, { css } from 'styled-components';
 
-const DefaultStyledBtn = styled.button`
+// Variant prop. type e.g outline or text
+const variantStyle = css`
+  ${({ variant }) => {
+    if (variant === 'outline') {
+      return css`
+        background-color: white;
+        box-shadow: none;
+        border: 1px solid #3d5afe;
+        color: #3d5afe;
+
+        &:hover,
+        &:focus {
+          outline: #3d5afe;
+          background-color: rgba(61, 90, 254, 0.1);
+        }
+      `;
+    }
+
+    if (variant === 'text') {
+      return css`
+        background: none;
+        box-shadow: none;
+        color: #3d5afe;
+        &:hover,
+        &:focus {
+          background-color: rgba(61, 90, 254, 0.1);
+        }
+      `;
+    }
+  }}
+`;
+
+// color props for background color setting
+const backgroundColorStyle = css`
+  ${({ color }) => {
+    if (color === 'primary')
+      return css`
+        background-color: #2962ff;
+        outline: #2962ff;
+        color: white;
+        &:hover,
+        &:focus {
+          background-color: #0039cb;
+        }
+      `;
+    if (color === 'secondary')
+      return css`
+        background-color: #455a64;
+        outline: #455a64;
+        color: white;
+        &:hover,
+        &:focus {
+          background-color: #1c313a;
+        }
+      `;
+    if (color === 'danger')
+      return css`
+        background-color: #d32f2f;
+        outline: #d32f2f;
+        color: white;
+        &:hover,
+        &:focus {
+          background-color: #9a0007;
+        }
+      `;
+  }}
+`;
+
+// Size prop. type e.g sm: small, md: medium or lg: large
+const sizeStyle = css`
+  ${({ size }) => {
+    if (size === 'sm')
+      return css`
+        width: 73px;
+        height: 32px;
+      `;
+    if (size === 'md')
+      return css`
+        width: 81px;
+        height: 36px;
+      `;
+    if (size === 'lg')
+      return css`
+        width: 93px;
+        height: 42px;
+      `;
+  }}
+`;
+
+//Disabled prop
+const disabledStyle = css`
+  ${({ disabled, variant }) => {
+    if (disabled && variant === 'text') {
+      return css`
+        &:disabled {
+          background-color: inherit;
+          color: #9e9e9e;
+          cursor: not-allowed;
+        }
+      `;
+    }
+  }}
+`;
+const StyledButton = styled.button`
   padding: 8px 16px;
   height: 36px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  box-shadow: 0px 2px 2px rgba(51, 51, 51, 0.2);
+  box-shadow: ${({ disableShadow }) =>
+    disableShadow ? 'none' : '0px 2px 3px rgba(51, 51, 51, 0.2)'};
   font-size: 14px;
-  font-style: medium;
+ 
   &:hover,
   &:focus {
+    outline: #aeaeae;
     background-color: #aeaeae;
-    outline: 0;
   }
+
   &:disabled {
-    background-color: #e0e0e0;
-    color: #9e9e9e;
-    box-shadow: none;
+   background-color: #e0e0e0;
+   cursor: not-allowed;
   }
+  
+  ${variantStyle}
+  ${backgroundColorStyle}
+  ${sizeStyle}
+  ${disabledStyle}
+
 `;
 
-const VariantStyledButton = styled(DefaultStyledBtn)`
-  ${({ variant }) =>
-    variant &&
-    variant === 'outline' &&
-    css`
-      border: 1px solid #3d5afe;
-      outline-color: #3d5afe;
-      background-color: #ffffff;
-      color: #3d5afe;
-
-      &:hover,
-      &:focus {
-        background-color: rgba(41, 98, 255, 0.1);
-      }
-    `}
-  ${({ variant }) =>
-    variant &&
-    variant === 'text' &&
-    css`
-      border: none;
-      background-color: inherit;
-      box-shadow: unset;
-      color: #3d5afe;
-      &:hover,
-      &:focus {
-        background-color: rgba(41, 98, 255, 0.1);
-      }
-      &:disabled {
-        border: none;
-        background-color: inherit;
-        box-shadow: unset;
-      }
-    `}
-`;
-
-const DisableShadowStyledBtn = styled(DefaultStyledBtn)`
-  ${({ disableShadow }) =>
-    disableShadow &&
-    css`
-      border: none;
-      background-color: #3d5afe;
-      box-shadow: none;
-      color: #ffffff;
-      &:hover,
-      &:focus {
-        border: 1px solid #3d5afe;
-        background-color: rgba(61, 90, 254, 1);
-      }
-    `}
-`;
-
-const SizeStyledBtn = styled(DefaultStyledBtn)`
-  ${({ size }) => {
-    switch (size) {
-      case 'sm':
-        return css`
-          width: 73px;
-          height: 32px;
-        `;
-      case 'md':
-        return css`
-          width: 81px;
-          height: 36px;
-        `;
-      case 'lg':
-        return css`
-          width: 93px;
-          height: 42px;
-        `;
-      default:
-        return;
-    }
-  }}
-`;
-
-const ColorStyledBtn = styled(DefaultStyledBtn)`
-  ${({ color }) => {
-    switch (color) {
-      case 'primary':
-        return css`
-          background-color: #2962ff;
-          color: #ffffff;
-          &:hover,
-          &:focus {
-            background-color: #0039cb;
-          }
-        `;
-      case 'secondary':
-        return css`
-          background-color: #455a64;
-          color: #ffffff;
-          &:hover,
-          &:focus {
-            background-color: #1c313a;
-          }
-        `;
-      default:
-        return css`
-          background-color: #e0e0e0;
-          &:hover,
-          &:focus {
-            background-color: #aeaeae;
-          }
-        `;
-    }
-  }}
-`;
-
-export {
-  DefaultStyledBtn,
-  VariantStyledButton,
-  SizeStyledBtn,
-  ColorStyledBtn,
-  DisableShadowStyledBtn,
-};
+export { StyledButton };
