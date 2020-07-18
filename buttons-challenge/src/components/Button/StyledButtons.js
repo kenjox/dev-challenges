@@ -93,6 +93,7 @@ const GlobalButtonStyle = createGlobalStyle`
   .btn-children {
     display: flex;
     align-items: center;
+    justify-content: center;
   }
   .btn-icon {
     margin: 0 5px;
