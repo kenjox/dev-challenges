@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, createGlobalStyle } from 'styled-components';
 
 // Variant prop. type e.g outline or text
 const variantStyle = css`
@@ -89,6 +89,16 @@ const sizeStyle = css`
   }}
 `;
 
+const GlobalButtonStyle = createGlobalStyle`
+  .btn-children {
+    display: flex;
+    align-items: center;
+  }
+  .btn-icon {
+    margin: 0 5px;
+  }
+`;
+
 //Disabled prop
 const disabledStyle = css`
   ${({ disabled, variant }) => {
@@ -129,6 +139,16 @@ const StyledButton = styled.button`
   ${sizeStyle}
   ${disabledStyle}
 
+  ${({ startIcon }) => {
+    if (startIcon) {
+      return css`
+        .btn-title {
+          order: 2;
+        }
+      `;
+    }
+  }}
+
 `;
 
-export { StyledButton };
+export { StyledButton, GlobalButtonStyle };

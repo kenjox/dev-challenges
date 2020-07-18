@@ -72,6 +72,17 @@ function App() {
           <Button disabled variant="text" />
         </div>
       </div>
+      <h2 className="title">Icons</h2>
+      <div className="row">
+        <div className="item">
+          <Snippet>&lt;Button startIcon="local_grocery_store" /&gt;</Snippet>
+          <Button startIcon="local_grocery_store" color="primary" />
+        </div>
+        <div className="item">
+          <Snippet>&lt;Button endIcon="local_grocery_store" /&gt;</Snippet>
+          <Button endIcon="local_grocery_store" />
+        </div>
+      </div>
     </div>
   );
 }

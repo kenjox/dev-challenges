@@ -2,14 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '@material-ui/core/Icon';
 
-import { StyledButton } from './StyledButtons';
+import { StyledButton, GlobalButtonStyle } from './StyledButtons';
 
 const Button = (props) => {
-  const { title } = props;
+  const { title, startIcon, endIcon } = props;
   return (
-    <StyledButton {...props}>
-      <span>{title}</span>
-    </StyledButton>
+    <>
+      <GlobalButtonStyle />
+      <StyledButton {...props}>
+        <div className="btn-children">
+          <span className="btn-title">{title}</span>
+          {startIcon && <Icon className="btn-icon">local_grocery_store</Icon>}
+          {endIcon && <Icon className="btn-icon">local_grocery_store</Icon>}
+        </div>
+      </StyledButton>
+    </>
   );
 };
 
