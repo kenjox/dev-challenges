@@ -2,10 +2,43 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 const REST_COUNTRIES_URL = 'https://restcountries.eu/rest/v2/all';
+const CHOICE_LETTERS = ['A', 'B', 'C', 'D'];
+
+const Question = ({ choices, callback, next }) => {
+  return (
+    <>
+      <h2>Nairobi is the capital city of </h2>
+      {choices.length && (
+        <div className="choices">
+          {choices.map((choice, index) => (
+            <div key={choice} className="choice" onClick={callback}>
+              <div className="choice-symbol">{CHOICE_LETTERS[index]}</div>
+              <p className="choice-text">{choice}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="next" onClick={() => next()}>
+        <span>Next</span>
+      </div>
+    </>
+  );
+};
 
 function App() {
-  const [countries, setCountries] = useState([]);
+  const localStore = JSON.parse(window.localStorage.getItem('countries')) || [];
+  const [countries, setCountries] = useState(localStore);
+  const [step, setStep] = useState(1);
 
+  const nextStep = () => {
+    setStep(step + 1);
+  };
+
+  const generateQuestion = (data) =>
+    data && data[Math.floor(Math.random() * data.length)];
+
+  // Fetch countries from rest api
   const getCountries = async () => {
     const resp = await fetch(REST_COUNTRIES_URL);
     const jsonResponse = await resp.json();
@@ -16,18 +49,67 @@ function App() {
         flag,
       };
     });
+
+    // Store in localStorage
+    window.localStorage.setItem(
+      'countries',
+      JSON.stringify(countriesArray, null, 2)
+    );
     setCountries(countriesArray);
   };
 
-  const generateQuestion = () =>
-    countries && countries[Math.floor(Math.random * countries.length)];
+  const handleSelectedChoice = (event, choice) => {
+    event.persist();
+    console.log('Selected');
+  };
 
+  // Sample choices
+  const choices = ['Napali', 'Kenya', 'Uganda', 'Tanzania'];
+
+  const renderQuestion = () => {
+    switch (step) {
+      case 1:
+        return (
+          <Question
+            choices={choices}
+            callback={handleSelectedChoice}
+            next={nextStep}
+          />
+        );
+      case 2:
+        return (
+          <>
+            <h1>Question 2</h1>
+            <div className="next" onClick={nextStep}>
+              <span>Next</span>
+            </div>
+          </>
+        );
+      case 3:
+        return (
+          <>
+            <h1>Question 3</h1>
+            <div className="next" onClick={nextStep}>
+              <span>Next</span>
+            </div>
+          </>
+        );
+      case 4:
+        return (
+          <>
+            <h1>Question 4</h1>
+            <div className="next" onClick={nextStep}>
+              <span>Next</span>
+            </div>
+          </>
+        );
+    }
+  };
+  console.log(step);
   useEffect(() => {
-    //TODO: Check if the countries are in local storage first
-    getCountries();
-    if (countries.length) {
-      const randomCountry = countries.length && generateQuestion();
-      console.log(countries);
+    //Only make http call if nothing in localStorage
+    if (localStore.length < 1) {
+      getCountries();
     }
   }, []);
 
@@ -36,27 +118,7 @@ function App() {
       <header id="main-header">
         <h1>COUNTRY QUIZ</h1>
       </header>
-      <div className="questions-wrapper">
-        <h2>Nairobi is the capital city of ?</h2>
-        <div className="choices">
-          <div className="choice">
-            <div className="choice-symbol">A</div>
-            <p className="choice-text">Uganda</p>
-          </div>
-          <div className="choice">
-            <div className="choice-symbol">B</div>
-            <p className="choice-text">Uganda</p>
-          </div>
-          <div className="choice">
-            <div className="choice-symbol">C</div>
-            <p className="choice-text">Uganda</p>
-          </div>
-          <div className="choice">
-            <div className="choice-symbol">D</div>
-            <p className="choice-text">Uganda</p>
-          </div>
-        </div>
-      </div>
+      <div className="questions-wrapper">{renderQuestion()}</div>
     </div>
   );
 }

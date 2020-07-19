@@ -40,9 +40,10 @@ html {
 
 .questions-wrapper {
   background-color: #ffffff;
-  border-radius: 24px;
-  width: 464px;
-  height: 515px;
+  border-radius: 2.4rem;
+  width: 46.4rem;
+  height: 55.9rem;
+  position: relative;
 }
 
 .questions-wrapper h2 {
@@ -51,7 +52,6 @@ html {
   padding-left: 3.2rem;
   line-height: 3.6rem;
   font-size: 2.4rem;
-
   font-weight: bold;
 }
 
@@ -65,6 +65,7 @@ html {
   cursor: pointer;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 .choice-symbol {
   font-size: 2.4rem;
@@ -73,4 +74,26 @@ html {
 }
 .choice-text {
   font-size: 1.8rem;
+}
+
+.next {
+  text-align: right;
+  background-color: #f9a826;
+  width: 11.6rem;
+  height: 4rem;
+  border-radius: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  cursor: pointer;
+}
+.next span {
+  text-decoration: none;
+  color: white;
+  font-size: 1.8rem;
+  font-style: bold;
+  line-height: 2.7rem;
 }
