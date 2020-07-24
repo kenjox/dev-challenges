@@ -1,72 +1,26 @@
 import React, { useState, useEffect } from 'react';
 
+import { init } from './utils';
+
 import Question from './components/Question';
+import Results from './components/Results';
 
 import { ReactComponent as AdventureIcon } from './undraw_adventure.svg';
-import { ReactComponent as WinnerIcon } from './undraw_winners.svg';
+
 import './App.css';
 
-const REST_COUNTRIES_URL = 'https://restcountries.eu/rest/v2/all';
-
 function App() {
-  const localStore = JSON.parse(window.localStorage.getItem('questions')) || [];
   const [question, setQuestion] = useState({});
+  const [countries, setCountries] = useState([]);
   const [score, setScore] = useState(0);
   const [step, setStep] = useState(1);
+
+  const randomQuestion = (data) =>
+    data[Math.floor(Math.random() * data.length)];
 
   const nextStep = () => {
     setStep(step + 1);
   };
-
-  // Fetch countries from rest api
-  const getCountries = async () => {
-    const resp = await fetch(REST_COUNTRIES_URL);
-    const jsonResponse = await resp.json();
-    const countriesArray = jsonResponse.map(({ name, capital, flag }) => {
-      return {
-        name,
-        capital,
-        flag,
-      };
-    });
-
-    return countriesArray;
-  };
-
-  // Gets subset random countries from collection
-  const getRandomCountries = (data, size) => {
-    const results = [];
-    for (let i = 0; i < size; i++) {
-      results.push(data[Math.floor(Math.random() * data.length)]);
-    }
-    return results;
-  };
-
-  // Format countries fetched into quiz api
-  const createQuestionsAPI = async () => {
-    const data = await getCountries();
-
-    const quiz = data.map((country) => {
-      const options = getRandomCountries(data, 3).map((c) => c.name);
-      options.push(country.name);
-
-      return {
-        question: `${country.capital} is the capital of `,
-        answer: country.name,
-        options, // TODO: fix shuffle
-      };
-    });
-
-    return quiz;
-  };
-
-  const saveQuizApiToLocalStore = async (data) => {
-    const quiz = await createQuestionsAPI();
-    window.localStorage.setItem('questions', JSON.stringify(quiz, null, 2));
-  };
-
-  const randomQuestion =
-    localStore[Math.floor(Math.random() * localStore.length)];
 
   const handleSelectedChoice = (event, choice) => {
     event.persist();
@@ -84,85 +38,66 @@ function App() {
   const renderQuestion = () => {
     switch (step) {
       case 1:
-        return (
-          <Question
-            question={question}
-            callback={handleSelectedChoice}
-            next={nextStep}
-          />
-        );
+        return <Question data={question} callback={handleSelectedChoice} />;
       case 2:
-        return (
-          <Question
-            question={question}
-            callback={handleSelectedChoice}
-            next={nextStep}
-          />
-        );
+        return <Question data={question} callback={handleSelectedChoice} />;
       case 3:
-        return (
-          <Question
-            question={question}
-            callback={handleSelectedChoice}
-            next={nextStep}
-          />
-        );
+        return <Question data={question} callback={handleSelectedChoice} />;
       case 4:
-        return (
-          <Question
-            question={question}
-            callback={handleSelectedChoice}
-            next={nextStep}
-          />
-        );
+        return <Question data={question} callback={handleSelectedChoice} />;
       case 5:
-        return (
-          <>
-            <div className="choices">
-              <div id="winner-icon">
-                <WinnerIcon />
-              </div>
-              <h2>Results</h2>
-              <p>
-                You got <span>{score}/4</span> correct answers
-              </p>
-
-              <button onClick={retryAgain}>Try again</button>
-            </div>
-          </>
-        );
+        return <Question data={question} callback={handleSelectedChoice} />;
+      default:
+        return <Results score={score} callback={retryAgain} />;
     }
   };
+
   useEffect(() => {
-    //Only make http call if nothing in localStorage
-    if (localStore.length < 1) {
-      saveQuizApiToLocalStore();
+    async function getQuestions() {
+      const data = await init();
+      setCountries(data);
+      setQuestion(randomQuestion(data));
     }
+    getQuestions();
   }, []);
 
   useEffect(() => {
-    setQuestion(randomQuestion);
+    if (countries.length) {
+      setQuestion(randomQuestion(countries));
+    }
   }, [step]);
 
   return (
-    <>
-      <div className="container">
-        <header id="main-header">
-          <h1>COUNTRY QUIZ</h1>
-        </header>
-        <div className="questions-wrapper">
-          {step !== 5 && (
-            <div className="adventure-icon">
-              <AdventureIcon />
-            </div>
-          )}
-          {renderQuestion()}
-        </div>
+    <div className="container">
+      <h1 id="header__title">COUNTRY QUIZ</h1>
+      <div className="panel">
+        {Object.keys(question).length ? (
+          <div className="panel__icon">
+            {question.type === 'flag' && step !== 6 && (
+              <div className="flag">
+                <img src={question.flag} alt="country flag icon" />
+              </div>
+            )}
+            {step !== 6 && (
+              <div className="adventure">
+                <AdventureIcon />
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="loader"></div>
+        )}
+        {renderQuestion()}
+        {step !== 6 && (
+          <button className="next__button" onClick={nextStep}>
+            Next
+          </button>
+        )}
       </div>
       <footer>
-        <h2>Kennedy Otis @ DevChallenges.io</h2>
+        <h2>Kennedy Otis@DevChallenges.io</h2>
       </footer>
-    </>
+    </div>
   );
 }
 

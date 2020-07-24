@@ -1,30 +1,41 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const CHOICE_LETTERS = ['A', 'B', 'C', 'D'];
+import MultipleChoices from './MultipleChoices';
 
-const Question = ({ question, callback, next }) => {
+const createQuestion = (data) => {
+  console.log({ data });
+  let quizText = '';
+
+  if (data.type === 'flag') {
+    quizText = 'Which country does this flag belong to';
+  }
+
+  if (data.type === 'capital') {
+    quizText = `${data.capital} is the capital of`;
+  }
+
+  return quizText;
+};
+
+const Question = ({ data, callback }) => {
+  const isCapital = data.type === 'capital';
   return (
-    <>
-      <h2>{question.question}</h2>
-      {question.options && (
-        <div>
-          {question.options.map((option, index) => (
-            <div
-              key={option}
-              className="choice"
-              onClick={(e) => callback(e, option)}
-            >
-              <div className="choice-symbol">{CHOICE_LETTERS[index]}</div>
-              <p className="choice-text">{option}</p>
-            </div>
-          ))}
-        </div>
+    <div className={`question ${isCapital ? 'capital' : ''}`}>
+      <h2 className="question__title">{createQuestion(data)}</h2>
+      {data.options && (
+        <MultipleChoices choices={data.options} callback={callback} />
       )}
-      <div className="next" onClick={next}>
-        <span>Next</span>
-      </div>
-    </>
+    </div>
   );
+};
+
+Question.propTypes = {
+  data: PropTypes.shape({
+    answer: PropTypes.string,
+    question: PropTypes.string,
+    options: PropTypes.array,
+  }),
 };
 
 export default Question;
