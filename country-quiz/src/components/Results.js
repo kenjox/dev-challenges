@@ -1,23 +1,26 @@
 import React from 'react';
 import PropType from 'prop-types';
 
-import { ReactComponent as TrophyIcon } from '../undraw_winners.svg';
+import TrophyIcon from '../images/undraw_winners.svg';
 
 const Results = ({ score, callback }) => {
   return (
-    <div className="results">
-      <div className="results__icon">
-        <TrophyIcon />
+    <section className="panel-wrapper">
+      <div className="container">
+        <div className="winner">
+          <img src={TrophyIcon} alt="trophy icon" />
+        </div>
+        <div className="container">
+          <h1 className="results-title">Results</h1>
+          <p className="results-text">
+            You got <span className="score">{score} </span>correct answers
+          </p>
+        </div>
+        <div onClick={callback} className="button try-again">
+          <span>Try again</span>
+        </div>
       </div>
-      <h2 id="results__title">Results</h2>
-      <p id="results__text">
-        You got <span id="results__score">{score}</span> correct answers
-      </p>
-
-      <button id="retryButton" onClick={callback}>
-        {score < 5 ? 'Try again' : 'Reset'}
-      </button>
-    </div>
+    </section>
   );
 };
 
