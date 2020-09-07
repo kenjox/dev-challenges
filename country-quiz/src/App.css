@@ -1,0 +1,245 @@
+:root {
+  --panel-bg-color: #ffffff;
+  --border-radius: 2.4rem;
+  --hight-color: #f9a826;
+  --border-highlight: 2px solid rgba(96, 102, 208, 0.7);
+  --quiz-color: #2f527b;
+  --choice-color: rgba(96, 102, 208, 0.8);
+  --error-bg-color: #ea8282;
+  --success-bg-color: #60bf88;
+  --result-color: #1d355d;
+  --spinner-color: #2d5fb6;
+}
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Poppins', sans-serif;
+  font-size: 62.5%;
+}
+
+body {
+  background-image: url('./images/background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+header h1 {
+  color: white;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-size: 3.6rem;
+}
+
+.panel-wrapper {
+  background-color: var(--panel-bg-color);
+  border-radius: var(--border-radius);
+  padding: 0 3.2rem;
+  width: 46.4rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.icon {
+  margin-top: 6rem;
+}
+
+.panel-icon {
+  position: absolute;
+  top: -73px;
+  right: 0px;
+}
+
+.country-flag {
+  margin-bottom: 2rem;
+}
+
+.country-flag img {
+  width: 8.4rem;
+  height: 5.4rem;
+  filter: drop-shadow(0px 4px 24px rgba(0, 0, 0, 0.1));
+  border-radius: 4px;
+}
+
+.quiz-text {
+  font-size: 2.4rem;
+  line-height: 3.6rem;
+  color: var(--quiz-color);
+}
+
+.choices__item {
+  width: 400px;
+  height: 56px;
+  border: var(--border-highlight);
+  padding: 0 1rem;
+  border-radius: 1.2rem;
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.choices__item:hover {
+  background-color: var(--hight-color);
+}
+
+.choices__item:hover > * {
+  color: white;
+}
+
+.choices__item__letter {
+  flex: 1;
+  font-size: 2.4rem;
+  color: var(--quiz-color);
+  font-weight: 500;
+  font-style: normal;
+}
+.choices__item__text {
+  flex: 6;
+  font-size: 1.6rem;
+  padding: 1rem 0;
+  color: var(--quiz-color);
+}
+.choices__item__icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  border-radius: 12px;
+  cursor: pointer;
+  color: white;
+  font-size: 1.8rem;
+  margin: 2.4rem 0 3.2rem 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.next {
+  background: var(--hight-color);
+  width: 11.6rem;
+  height: 5.6rem;
+  box-shadow: 0px 2px 4px rgba(252, 168, 47, 0.4);
+  user-select: none;
+}
+
+.winner {
+  margin: 5rem 0 7.2rem 0;
+}
+
+.winner img {
+  width: 23.8rem;
+  height: 12.8rem;
+}
+
+.try-again {
+  width: 20.9rem;
+  height: 6.2rem;
+  color: var(--result-color);
+  border: 2px solid var(--result-color);
+  margin: auto;
+  margin-bottom: 3.3rem;
+}
+
+.results-title {
+  color: var(--result-color);
+  font-size: 4.8rem;
+  text-align: center;
+}
+
+.results-text {
+  color: var(--result-color);
+  font-size: 1.8rem;
+  margin-bottom: 7.1rem;
+  font-weight: normal;
+}
+
+.score {
+  color: rgb(5, 191, 129);
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
+.correct {
+  background-color: var(--success-bg-color);
+}
+
+.correct > * {
+  color: white;
+}
+
+.wrong {
+  background-color: var(--error-bg-color);
+}
+
+.wrong > * {
+  color: white;
+}
+
+.end {
+  align-self: flex-end;
+}
+
+footer.container {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 60rem;
+  width: 100%;
+  margin: auto;
+  margin-bottom: 20px;
+}
+.hide {
+  display: none;
+}
+
+.loader {
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid var(--spinner-color);
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 20rem;
+  left: 17rem;
+  z-index: 1000;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+footer {
+  color: var(--footer-text);
+  position: absolute;
+  bottom: 0rem;
+}
